@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="img/Logo.png" alt="LOGO" id="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="portafolio.html">Portafolio</a></li>
+                <li><a href="habilidades.html">Habilidades</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="banner4">
+            <h1>CONTACTO</h1>
+        </section>
+        <section class="contact-section">
+            <form action="contacto.php" method="post" class="contact-form">
+                <label for="name">NOMBRE:</label>
+                <input type="text" id="name" name="name">
+                <label for="email">CORREO ELECTRÓNICO:</label>
+                <input type="email" id="email" name="email">
+                <label for="subject">ASUNTO:</label>
+                <input type="text" id="subject" name="subject">
+                <label for="message">MENSAJE:</label>
+                <textarea id="message" name="message"></textarea>
+                <button type="submit">ENVIAR</button>
+            </form>
+            <div class="contact-info">
+                <div>
+                    <img src="img/Tel.png" alt="Teléfono">
+                    <p>+(506) 8536-5138</p>
+                </div>
+                <div>
+                    <img src="img/Email.png" alt="Correo">
+                    <p>jose.totto1010@gmail.com</p>
+                </div>
+                <div>
+                    <img src="img/FB.png" alt="Facebook">
+                    <p>Jose Zamora</p>
+                </div>
+                <div>
+                    <img src="img/IG.png" alt="Instagram">
+                    <p>@Mr.Totto1010</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <p class="footer-left">©2024. Nombre. Todos los derechos reservados.</p>
+            <img src="img/Logo.png" alt="LOGO" id="footer-logo">
+            <p class="footer-right">correo@gmail.com (+506) 88445566</p>
+        </div>
+    </footer>
+</body>
+</html>
