@@ -1,38 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Calculadora de Días Vividos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia de Cultura General o Ciencia</title>
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-        /* Bad practice: Inline styles mixed with external stylesheet */
-        #resultado { padding-top: 5px !important; }
-        body { background-color: #f5f7fa; }
-    </style>
+</head>
 <body>
     <div class="container">
-        <h1>Calculadora de Días Vividos</h1>
+        <h1>Trivia de Cultura General o Ciencia</h1>
         
-        <!-- Bad practice: Non-semantic tag names -->
-        <div class="form-group">
-            <label>Fecha de Nacimiento:</label>
-            <input type="date" id="fechaNacimiento" required onclick="this.style.borderColor='blue'">
+        <div id="quiz-container">
+            <!-- El contenido de la trivia se cargará dinámicamente con JavaScript -->
         </div>
         
-        <div class="buttons">
-            <button id="calcularBtn">Calcular</button>
-            <button id="reiniciarBtn">Reiniciar</button>
+        <div id="results-container" class="hidden">
+            <!-- Los resultados se mostrarán aquí al finalizar -->
         </div>
-        
-        <div id="resultado" class="resultado"></div>
     </div>
-
-    <!-- Bad practice: Inline script before external script -->
-    <script>
-        var a = document.getElementById('calcularBtn');
-        a.onmouseover = function() { a.style.transform = 'scale(1.05)'; }
-        a.onmouseout = function() { a.style.transform = 'scale(1)'; }
-    </script>
+    
     <script src="js/script.js"></script>
 </body>
 </html>
