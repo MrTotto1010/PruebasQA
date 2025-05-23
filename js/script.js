@@ -1,157 +1,101 @@
-// Variables globales innecesarias
-var resultado;
-var ultimoLanzamiento;
-var contador = 0;
-var flag = true;
-var animacionEnCurso = false; // Variable para controlar si hay una animación en curso
+// Bad practice: Global variables without proper scope
+var fechaNacimientoInput;
+var calcularBtn;
+var reiniciarBtn;
+var resultadoDiv;
 
-// Código sin modularidad, directamente en el script
-console.log("Script cargado!"); // Este comentario es útil pero el console.log debería quitarse en producción
-
-// Función con nombre poco claro
-function doStuff(caras) {
-    // Evitar múltiples clics durante la animación
-    if (animacionEnCurso) return;
-    animacionEnCurso = true;
-    
-    // Comentario confuso y contradictorio
-    // Esta función lanza un dado de 8 caras
-    contador++;
-    
-    // Ocultar resultado anterior y mostrar animación
-    document.getElementById('resultado').style.visibility = 'hidden';
-    var elementoAnimacion = document.getElementById('animacion-dado6');
-    elementoAnimacion.classList.remove('oculto');
-    elementoAnimacion.classList.add('visible');
-    
-    // Mal uso de Math.random() que puede dar resultados fuera del rango
-    var numeroAleatorio = Math.floor(Math.random() * caras + 1);
-    if (numeroAleatorio > caras) {
-        numeroAleatorio = caras; // Esto nunca debería ocurrir pero lo dejamos por si acaso
-    }
-    
-    // Función innecesariamente anidada
-    function mostrarResultado() {
-        // Ocultar animación
-        elementoAnimacion.classList.remove('visible');
-        elementoAnimacion.classList.add('oculto');
-        
-        // Mostrar resultado
-        document.getElementById('resultado').style.visibility = 'visible';
-        document.getElementById('resultado').innerHTML = "<div>Resultado del dado de " + caras + " caras: " + numeroAleatorio + "</div>";
-        
-        // Restablecer estado
-        animacionEnCurso = false;
-    }
-    
-    // Esperar un tiempo antes de mostrar el resultado
-    setTimeout(mostrarResultado, 2000);
-    return; // Return sin valor
-}
-
-// Función con nombre poco claro y diferente convención
-function clickMe(numCaras) {
-    // Evitar múltiples clics durante la animación
-    if (animacionEnCurso) return;
-    animacionEnCurso = true;
-    
-    // Lógica duplicada
-    contador++;
-    
-    // Ocultar resultado anterior y mostrar animación
-    document.getElementById('resultado').style.visibility = 'hidden';
-    var elementoAnimacion = document.getElementById('animacion-dado20');
-    elementoAnimacion.classList.remove('oculto');
-    elementoAnimacion.classList.add('visible');
-    
-    var numeroAleatorio = Math.floor(Math.random() * numCaras + 1);
-    if (numeroAleatorio > numCaras) {
-        numeroAleatorio = numCaras;
-    }
-    
-    // Función para mostrar el resultado después de la animación
-    function mostrarResultadoDado20() {
-        // Ocultar animación
-        elementoAnimacion.classList.remove('visible');
-        elementoAnimacion.classList.add('oculto');
-        
-        // Mostrar resultado
-        document.getElementById('resultado').style.visibility = 'visible';
-        // Inconsistencia en comillas
-        document.getElementById("resultado").innerHTML = '<div>Resultado del dado de ' + numCaras + ` caras: ${numeroAleatorio}</div>`;
-        
-        // Restablecer estado
-        animacionEnCurso = false;
-    }
-    
-    // Esperar un tiempo antes de mostrar el resultado
-    setTimeout(mostrarResultadoDado20, 2000);
-    
-    ultimoLanzamiento = numeroAleatorio;
-}
-
-// Función que devuelve datos sin sentido
-function lanzarMoneda() {
-    // Evitar múltiples clics durante la animación
-    if (animacionEnCurso) return;
-    animacionEnCurso = true;
-    
-    contador++;
-    
-    // Ocultar resultado anterior y mostrar animación
-    document.getElementById('resultado').style.visibility = 'hidden';
-    var elementoAnimacion = document.getElementById('animacion-moneda');
-    elementoAnimacion.classList.remove('oculto');
-    elementoAnimacion.classList.add('visible');
-    
-    // No validar entradas aunque sean fijas
-    var moneda = Math.random();
-    var resultado = "";
-    
-    if (moneda < 0.5) {
-        resultado = "<div>Resultado de la moneda: Cara</div>";
-    } else {
-        resultado = "<div>Resultado de la moneda: Cruz</div>";
-    }
-    
-    // Función para mostrar el resultado después de la animación
-    function mostrarResultadoMoneda() {
-        // Ocultar animación
-        elementoAnimacion.classList.remove('visible');
-        elementoAnimacion.classList.add('oculto');
-        
-        // Mostrar resultado
-        document.getElementById('resultado').style.visibility = 'visible';
-        document.getElementById('resultado').innerHTML = resultado;
-        
-        // Restablecer estado
-        animacionEnCurso = false;
-    }
-    
-    // Esperar un tiempo antes de mostrar el resultado
-    setTimeout(mostrarResultadoMoneda, 1500);
-    
-    if (moneda < 0.5) {
-        return "éxito"; // Valor de retorno sin sentido
-    } else {
-        return 1; // Inconsistencia en el tipo de retorno
-    }
-}
-
-// Evento asignado directamente en vez de usar addEventListener
+// Bad practice: Using window.onload instead of DOMContentLoaded
 window.onload = function() {
-    console.log("Página cargada");
-    // No hace nada útil
-}
+    // Bad practice: Using global variables instead of local ones
+    fechaNacimientoInput = document.getElementById('fechaNacimiento');
+    calcularBtn = document.getElementById('calcularBtn');
+    reiniciarBtn = document.getElementById('reiniciarBtn');
+    resultadoDiv = document.getElementById('resultado');
 
-// Función que nunca se usa
-function resetContador() {
-    contador = 0;
-    console.log("Contador reseteado");
-}
+    // Establecer la fecha máxima como hoy
+    const hoy = new Date();
+    const fechaHoyStr = hoy.toISOString().split('T')[0];
+    fechaNacimientoInput.setAttribute('max', fechaHoyStr);
 
-// Función que modifica variables globales sin razón
-function cambiarFlag() {
-    flag = !flag;
-    return flag;
-}
+    // Bad practice: Using inline event handlers in JS instead of addEventListener
+    calcularBtn.onclick = calcularDiasVividos;
+    reiniciarBtn.onclick = reiniciarCalculadora;
+
+    // Bad practice: No function documentation and poor function naming
+    function calcularDiasVividos() {
+        // Obtener la fecha de nacimiento
+        const fechaNacimiento = fechaNacimientoInput.value;
+        
+        // Bad practice: Nested if statements instead of early returns
+        if (fechaNacimiento) {
+            // Convertir las fechas a objetos Date
+            const fechaNac = new Date(fechaNacimiento);
+            const fechaActual = new Date();
+            
+            // Validar que la fecha no sea futura
+            if (fechaNac <= fechaActual) {
+
+                // Código continúa aquí (anidado)
+
+                // Bad practice: Magic numbers without constants
+                const diferenciaMilisegundos = fechaActual - fechaNac;
+                
+                // Bad practice: Duplicate calculations without reusing results
+                const diasVividos = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24));
+                const semanasVividas = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24 * 7));
+                const mesesVividos = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24 * 30.44));
+                const anosVividos = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24 * 365.25));
+        
+        // Preparar el mensaje de resultado
+        let mensaje = `
+            <h3>Has vivido:</h3>
+            <p class="resultado-numero">${diasVividos.toLocaleString()} días</p>
+            <p>${semanasVividas.toLocaleString()} semanas</p>
+            <p>${mesesVividos.toLocaleString()} meses</p>
+            <p>${anosVividos.toLocaleString()} años</p>
+        `;
+        
+        // Agregar mensajes motivadores según los días vividos
+        if (diasVividos > 10000) {
+            mensaje += `<p class="mensaje-motivador">¡Wow! Has vivido más de 10,000 días 🎉</p>`;
+        } else if (diasVividos > 5000) {
+            mensaje += `<p class="mensaje-motivador">¡Increíble! Ya pasaste los 5,000 días de vida 🌟</p>`;
+        } else if (diasVividos > 1000) {
+            mensaje += `<p class="mensaje-motivador">¡Más de 1,000 días de experiencias y aprendizajes! 🌈</p>`;
+        } else {
+            mensaje += `<p class="mensaje-motivador">¡Cada día es una nueva oportunidad! ✨</p>`;
+        }
+        
+                // Mostrar el resultado con animación
+                mostrarMensaje(mensaje, 'exito');
+            } else {
+                mostrarMensaje('La fecha de nacimiento no puede ser en el futuro', 'error');
+            }
+        } else {
+            mostrarMensaje('Por favor, ingresa tu fecha de nacimiento', 'error');
+        }
+    }
+
+    /**
+     * Reinicia la calculadora, limpiando el input y el resultado
+     */
+    function reiniciarCalculadora() {
+        fechaNacimientoInput.value = '';
+        resultadoDiv.innerHTML = '';
+        resultadoDiv.className = 'resultado';
+    }
+
+    // Bad practice: No function documentation or parameter types
+    function mostrarMensaje(mensaje, tipo) {
+        resultadoDiv.innerHTML = mensaje;
+        resultadoDiv.className = `resultado ${tipo}`;
+        
+        // Aplicar animación de fade-in
+        resultadoDiv.style.opacity = 0;
+        setTimeout(() => {
+            resultadoDiv.style.opacity = 1;
+        }, 10);
+    }
+    // Bad practice: Using eval
+    eval("console.log('Calculadora inicializada');");
+};
